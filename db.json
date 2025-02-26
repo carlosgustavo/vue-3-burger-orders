@@ -88,17 +88,6 @@
       ],
       "status": "Em produção",
       "id": "4"
-    },
-    {
-      "id": "66c0",
-      "nome": "teste",
-      "carne": "Maminha",
-      "pao": "Italiano Branco",
-      "opcionais": [
-        "Bacon",
-        "Cheddar"
-      ],
-      "status": "Solicitado"
     }
   ]
 }

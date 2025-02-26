@@ -1,4 +1,6 @@
 <template>
+  <Message :msg="msg" v-show="msg" />
+
   <div id="burger-table" v-if="burgers">
     <div>
       <div id="burger-table-heading">
@@ -48,13 +50,19 @@
   </div>
 </template>
 <script>
+import Message from "../components/Message.vue";
+
 export default {
   name: "Dashboard",
+  components: {
+    Message,
+  },
   data() {
     return {
       burgers: null,
       burger_id: null,
       status: [],
+      msg: null,
     };
   },
   methods: {
@@ -80,6 +88,8 @@ export default {
         method: "DELETE",
       });
 
+      this.msg = "Pedido removido com sucesso!";
+      setTimeout(() => this.msg, 3000);
       const res = await req.json();
 
       this.getPedidos();
