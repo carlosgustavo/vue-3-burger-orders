@@ -1,6 +1,5 @@
 <template>
-  <!--   <Message :msg="msg" v-show="msg" />
- -->
+  <Message :msg="msg" v-show="msg" />
   <div>
     <form id="burger-form" method="POST" @submit="createBurger">
       <div class="input-container">
@@ -57,8 +56,8 @@
 </template>
 
 <script>
-/* import Message from "./Message";
- */
+import Message from "./Message";
+
 export default {
   name: "BurgerForm",
   data() {
@@ -74,9 +73,10 @@ export default {
       msg: null,
     };
   },
+
   methods: {
     async getIngredientes() {
-      const req = await fetch("http://localhost:3000/ingredientes");
+      const req = await fetch("http://localhost:5000/ingredientes");
       const data = await req.json();
 
       this.paes = data.paes;
@@ -84,6 +84,7 @@ export default {
       this.opcionaisdata = data.opcionais;
     },
     async createBurger(e) {
+      console.log("🚀 ~ createBurger ~ e:", e);
       e.preventDefault();
 
       const data = {
@@ -96,17 +97,16 @@ export default {
 
       const dataJson = JSON.stringify(data);
 
-      const req = await fetch("http://localhost:3000/burgers", {
+      const req = await fetch("http://localhost:5000/burgers", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: dataJson,
       });
 
       const res = await req.json();
+      console.log("🚀 ~ createBurger ~ res:", res);
 
-      console.log(res);
-
-      this.msg = "Pedido realizado com sucesso!";
+      this.msg = `Pedido N* ${res.id} realizado com sucesso!`;
 
       // clear message
       setTimeout(() => (this.msg = ""), 3000);
@@ -121,9 +121,14 @@ export default {
   mounted() {
     this.getIngredientes();
   },
-  /*  components: {
+  watch: {
+    pao(novoValor, antigoValor) {
+      console.log(`O pão foi alterado de ${antigoValor} para ${novoValor}`);
+    },
+  },
+  components: {
     Message,
-  }, */
+  },
 };
 </script>
 
