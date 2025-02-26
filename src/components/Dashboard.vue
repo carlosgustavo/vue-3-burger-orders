@@ -95,9 +95,7 @@ export default {
       this.getPedidos();
     },
     async updateBurger(event, id) {
-      console.log("🚀 ~ updateBurger ~ id:", id);
       const option = event.target.value;
-      console.log("🚀 ~ updateBurger ~ option:", option);
 
       const dataJson = JSON.stringify({ status: option });
 
@@ -108,6 +106,9 @@ export default {
       });
 
       const res = await req.json();
+      this.msg = `Pedido N: ${res.id} atualizado para ${res.status}`;
+
+      setTimeout(() => (this.msg = ""), 3000);
 
       console.log(res);
     },
